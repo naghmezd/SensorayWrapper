@@ -22,6 +22,7 @@ int main(int argc, char **argv)
   uint channel = 0;
   Simple826 B826;
   B826.SetDacOutput(&channel, &volt);
+  B826.SetDacOutput(&channel, &volt);
   B826.GetDacOutput(&channel, &volt2);
   B826.GetDacOutput(&channel, &volt2);
   B826.GetDacOutput(&channel, &volt2);
