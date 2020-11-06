@@ -23,6 +23,7 @@ int main(int argc, char **argv)
   Simple826 B826;
   B826.SetDacOutput(&channel, &volt);
   B826.GetDacOutput(&channel, &volt2);
+  B826.GetDacOutput(&channel, &volt2);
   std::cout<<"Check this:     "<<volt2<<std::endl;
 
     return 0;

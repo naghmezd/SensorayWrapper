@@ -1,1 +1,1 @@
-# MagneticHaptic
+# Wrapper for Sensoray 826 by Naghmeh Zamani
