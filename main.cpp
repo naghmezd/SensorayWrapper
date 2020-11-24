@@ -8,7 +8,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
+#include "forcesensor.hpp"
+#include <chrono>  // for high_resolution_clock
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,17 +18,22 @@
 
 int main(int argc, char **argv)
 {
-  double volt = -6.32;
-  double volt2;
-  uint channel = 0;
-  Simple826 B826;
-  B826.SetDacOutput(&channel, &volt);
-  B826.SetDacOutput(&channel, &volt);
-  B826.GetDacOutput(&channel, &volt2);
-  B826.GetDacOutput(&channel, &volt2);
-  B826.GetDacOutput(&channel, &volt2);
-  std::cout<<"Check this:     "<<volt2<<std::endl;
+  ForceSensor Force;
+  Vector6FT ft_1;
+  int numSample =4;//Number of samples needed to get average in buffer
+ 
+  int frequency =1000;
+  Force.FTSetOffset(1000);//Get the offset from the first 1000 data
 
+   // Record start time
+  auto start = std::chrono::high_resolution_clock::now();
+  for (int i=0;i<frequency;i++){
+    ft_1=Force.GetCurrentFT(numSample) ;
+    //std::cout<<ft_1[2]<<std::endl;
+  }
+  auto finish = std::chrono::high_resolution_clock::now();  
+  auto duration = std::chrono::duration_cast<std::chrono::microseconds>( finish - start ).count();
+  std::cout << "Each loop"<<duration/(frequency*1000.0);
     return 0;
 }
 

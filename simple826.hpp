@@ -2,7 +2,7 @@
 #define TEL826_H
 /*****************************************************
 A wrapper for sensoray card (826) to handle the ms updating rate!
-Ver 1.0 by Ashkan Oct-2020		
+Ver 1.0 by Naghme Nov-2020		
 *****************************************************/
 #include <chrono>
 #include "826api.h"
@@ -20,12 +20,16 @@ class Simple826{
 		uint board;                        // change this if you want to use other than board number 0
 		int errcode;  
 		int boardflags;        // open 826 driver and find all 826 boards
+		uint slotlist = 0xFFFF; 	//slot list for Adc_read
+
 
 	public:
 		Simple826();
 		~Simple826();
 		void SetDacOutput(uint *chan, double *volts);  //chan->channel number  volt->voltage
-		void GetDacOutput(uint *chan, double *volts);  //chan->channel number  volt->voltage !!!! THIS IS NOT A ANALOG READ (this just returns the output current value)----
+		void GetDacOutput(uint *chan, double *volts);  //chan->channel number  volt->voltage !!!! THIS IS NOT AN ANALOG READ (this just returns the output current value)----
+		//void ReadAdcOutput(int FTdata, int adcbuf[16]); 
+		void ReadAdcOutput(int* adcbuf, double *data); //Read analog input adcbuf->buffer value  data->voltage received from board
 		int GetError();  // Retruns error 
 		void PrintError(); //Prints error
 		// cv::Mat GetCurrentD2A();	//Returns the current frame from the camera (Type : opencv Mat)
